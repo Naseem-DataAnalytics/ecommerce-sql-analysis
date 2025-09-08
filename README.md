@@ -13,6 +13,6 @@ This section includes basic queries to verify that the data was loaded correctly
 #### Query 1: How many orders are in the database?
 ```sql
 SELECT COUNT(*) FROM orders;
+```
 **Result Snapshot:**
-
-![Result for Query 1]( https://github.com/Naseem-DataAnalytics/ecommerce-sql-analysis/blob/main/query-1-result.png )
+![Result for Query 1 showing total order count](https://github.com/Naseem-DataAnalytics/ecommerce-sql-analysis/blob/main/query-1-result.png)
