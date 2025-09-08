@@ -1,8 +1,14 @@
 # E-Commerce SQL Analysis Project
 
-#### Project Summary & Key Findings
+### Project Summary & Key Findings
 
 This project involved a deep dive into the Olist e-commerce dataset using PostgreSQL. The goal was to answer critical business questions regarding customer behavior, segmentation, and retention. Key findings revealed that the customer base is heavily skewed towards 'Low-Value' segments and that monthly retention drops significantly after the first purchase, highlighting opportunities for targeted engagement strategies.
+
+### Database Schema (ERD)
+
+The database is structured around a central `orders` table, which connects to customers, products, sellers, payments, and reviews. This normalized schema ensures data integrity and minimizes redundancy.
+
+![E-Commerce Database ERD](https://raw.githubusercontent.com/Naseem-DataAnalytics/ecommerce-sql-analysis/main/ecommerce-erd.png)
 ---
 
 ## Analysis & Insights
@@ -16,7 +22,7 @@ This section includes basic queries to verify that the data was loaded correctly
 SELECT COUNT(*) FROM orders;
 ```
 **Result Snapshot:**
-![Result for Query 1 showing total order count](https://github.com/Naseem-DataAnalytics/ecommerce-sql-analysis/blob/main/query-1-result.png)
+![Result for Query 1 showing total order count](https://raw.githubusercontent.com/Naseem-DataAnalytics/ecommerce-sql-analysis/main/query-1-result.png)
 
 #### Query 2: How many customers are in each state?
 ```sql
@@ -31,7 +37,7 @@ ORDER BY
 	customer_count DESC;
 ```
 **Result Snapshot:**
-![Result for Query 2 showing customer count for each state](https://github.com/Naseem-DataAnalytics/ecommerce-sql-analysis/blob/main/query-2-result.png)
+![Result for Query 2 showing customer count for each state](https://raw.githubusercontent.com/Naseem-DataAnalytics/ecommerce-sql-analysis/main/query-2-result.png)
 
 ### BUSINESS ANALYSIS QUERIES
 #### Business Question 1: Customer Segmentation
@@ -69,7 +75,7 @@ ORDER BY
   total_spent DESC;
 ```
 **Result Snapshot:**
-![Table showing customers segmented by total spending](https://github.com/Naseem-DataAnalytics/ecommerce-sql-analysis/blob/main/customer-segmentation-result.png)
+![Table showing customers segmented by total spending](https://raw.githubusercontent.com/Naseem-DataAnalytics/ecommerce-sql-analysis/main/customer-segmentation-result.png)
 
 #### Business Question 2: Cohort Analysis for Customer Retention
 
@@ -133,7 +139,7 @@ ORDER BY
 ```
 
 **Result Snapshot:**
-![Cohort retention chart showing monthly customer activity](https://github.com/Naseem-DataAnalytics/ecommerce-sql-analysis/blob/main/cohort-analysis-result.png)
+![Cohort retention chart showing monthly customer activity](https://raw.githubusercontent.com/Naseem-DataAnalytics/ecommerce-sql-analysis/main/cohort-analysis-result.png)
 
 
 
