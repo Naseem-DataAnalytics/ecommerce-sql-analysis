@@ -16,3 +16,19 @@ SELECT COUNT(*) FROM orders;
 ```
 **Result Snapshot:**
 ![Result for Query 1 showing total order count](https://github.com/Naseem-DataAnalytics/ecommerce-sql-analysis/blob/main/query-1-result.png)
+
+#### Query 2: How many customers are in each state?
+```sql
+SELECT
+	customer_state,
+	COUNT(customer_unique_id) AS customer_count
+FROM
+	customers
+GROUP BY
+	customer_state
+ORDER BY
+	customer_count DESC;
+```
+**Result Snapshot:**
+![Result for Query 2 showing customer count for each state](https://github.com/Naseem-DataAnalytics/ecommerce-sql-analysis/blob/main/query-2-result.png)
+
