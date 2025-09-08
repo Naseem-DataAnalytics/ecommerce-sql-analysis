@@ -13,7 +13,7 @@ The database is structured around a central `orders` table, which connects to cu
 
 ## Analysis & Insights
 
-### Warm-up: Basic Data Checks
+### Initial Data Exploration
 
 This section includes basic queries to verify that the data was loaded correctly and to get a high-level overview of the dataset.
 
