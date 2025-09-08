@@ -32,3 +32,39 @@ ORDER BY
 **Result Snapshot:**
 ![Result for Query 2 showing customer count for each state](https://github.com/Naseem-DataAnalytics/ecommerce-sql-analysis/blob/main/query-2-result.png)
 
+#### Business Question 1: Customer Segmentation
+
+To identify our most valuable customers, I segmented them into 'High-Value', 'Mid-Value', and 'Low-Value' tiers based on their total historical spending. This was achieved by joining customer, order, and payment data, and then using a CTE and a `CASE` statement to apply the labels.
+
+```sql
+-- Segment customers based on total spending
+WITH customer_spending AS (
+  -- First, calculate total spending per customer
+  SELECT
+    c.customer_unique_id,
+    SUM(op.payment_value) AS total_spent
+  FROM
+    customers c
+  JOIN
+    orders o ON c.customer_id = o.customer_id
+  JOIN
+    order_payments op ON o.order_id = op.order_id
+  GROUP BY
+    c.customer_unique_id
+)
+-- Now, select from our temporary result and add the segment labels
+SELECT
+  customer_unique_id,
+  total_spent,
+  CASE
+    WHEN total_spent > 1000 THEN 'High-Value'
+    WHEN total_spent > 500 THEN 'Mid-Value'
+    ELSE 'Low-Value'
+  END AS customer_segment
+FROM
+  customer_spending
+ORDER BY
+  total_spent DESC;
+```
+**Result Snapshot:**
+![Table showing customers segmented by total spending](https://github.com/Naseem-DataAnalytics/ecommerce-sql-analysis/blob/main/customer-segmentation-result.png)
