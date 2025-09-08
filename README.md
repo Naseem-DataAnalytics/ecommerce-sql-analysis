@@ -141,5 +141,11 @@ ORDER BY
 **Result Snapshot:**
 ![Cohort retention chart showing monthly customer activity](https://raw.githubusercontent.com/Naseem-DataAnalytics/ecommerce-sql-analysis/main/cohort-analysis-result.png)
 
+---
 
+## 📞 Connect with Me
+
+If you have any questions, feedback, or would like to discuss this project further, please feel free to reach out!
+
+* **Email:** naseemmohdcse@gmail.com
 
