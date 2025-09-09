@@ -34,7 +34,7 @@ Insight: The cohort analysis clearly shows that customer retention drops signifi
 
 Implement a Month-1 Reactivation Campaign: Proactively engage with new customers during their first month with a series of welcome emails that provide value beyond the initial purchase, such as usage tips for their product or personalized recommendations for a second purchase.
 
-Incentivize the Second Purchase: Test offering a time-sensitive voucher (e.g., "15% off your next order in the next 14 days") to motivate new customers to build a habit of shopping with the platform.
+Incentivize the Second Purchase: Offer a time-sensitive voucher (e.g., "15% off your next order in the next 14 days"). **Goal:** Improve Month-1 retention by a target of 5-10 percentage points, to be validated with A/B testing.
 
 Experiment with Loyalty Points: Introduce a simple points system where customers earn rewards on their first purchase that they can apply to their second, encouraging a faster return.
 
