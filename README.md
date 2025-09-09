@@ -4,6 +4,15 @@
 
 This project involved a deep dive into the Olist e-commerce dataset using PostgreSQL. The goal was to answer critical business questions regarding customer behavior, segmentation, and retention. Key findings revealed that the customer base is heavily skewed towards 'Low-Value' segments and that monthly retention drops significantly after the first purchase, highlighting opportunities for targeted engagement strategies.
 
+---
+### Tools & Technologies
+
+* **Database:** PostgreSQL
+* **IDE:** DBeaver
+* **Core SQL Concepts:** CTEs (Common Table Expressions), Advanced Joins, CASE Statements, Aggregate Functions, Date Functions.
+* **Key Analyses:** Customer Segmentation, Cohort & Retention Analysis.
+* **Visualization:** dbdiagram.io (for ERD)
+
 ### Business Recommendations
 Based on the SQL analysis of the Olist dataset, the following strategic recommendations can be made to drive customer value and improve long-term retention.
 
@@ -167,6 +176,11 @@ ORDER BY
 ![Cohort retention chart showing monthly customer activity](https://raw.githubusercontent.com/Naseem-DataAnalytics/ecommerce-sql-analysis/main/cohort-analysis-result.png)
 
 ---
+
+---
+### Conclusion
+
+This analysis of the Olist dataset demonstrates the power of SQL in transforming raw data into strategic insights. The findings from customer segmentation and cohort analysis highlight the critical importance of early customer engagement. By implementing the recommended strategies, a business can better retain its most valuable customers, improve the lifetime value of new customers, and achieve a higher return on investment from its marketing efforts.
 
 ## 📞 Connect with Me
 
