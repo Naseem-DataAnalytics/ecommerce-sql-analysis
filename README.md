@@ -47,7 +47,7 @@ To identify our most valuable customers, I segmented them into 'High-Value', 'Mi
 ```sql
 -- Segment customers based on total spending
 WITH customer_spending AS (
-  -- First, calculate total spending per customer
+  -- First, calculating total spending per customer
   SELECT
     c.customer_unique_id,
     SUM(op.payment_value) AS total_spent
@@ -84,7 +84,7 @@ This analysis aims to understand customer loyalty and retention over time. I gro
 ```sql
 -- Business Question 2: Create the final cohort retention chart
 WITH cohort_data AS (
-  -- This is the entire query you just successfully ran
+  -- This is the entire query I just successfully ran
   WITH cohort_items AS (
     SELECT
       c.customer_unique_id,
@@ -103,7 +103,7 @@ WITH cohort_data AS (
   JOIN orders o ON c.customer_id = o.customer_id
 ),
 cohort_counts AS (
-  -- Next, count the number of unique customers for each cohort and month number
+  -- Next, counting the number of unique customers for each cohort and month number
   SELECT
     cohort_month,
     month_number,
