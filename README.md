@@ -113,12 +113,12 @@ ORDER BY
 
 #### Business Question 2: Cohort Analysis for Customer Retention
 
-This analysis aims to understand customer loyalty and retention over time. I grouped customers into monthly cohorts based on their first purchase date and then tracked their purchasing activity in the subsequent months. This was achieved using multiple CTEs to first establish the cohorts and then to pivot the data into a monthly retention table.
+This analysis calculates the monthly **retention rate** of customer cohorts. Customers are grouped into cohorts based on their first purchase month. The retention rate is then calculated as the **percentage** of customers in a cohort who returned to make another purchase in the subsequent months. This is a key metric for understanding customer loyalty.
 
 ```sql
--- Business Question 2: Create the final cohort retention chart
+-- Business Question 2 (Final Version): Calculate monthly retention percentages for each cohort
 WITH cohort_data AS (
-  -- This is the entire query I just successfully ran
+  -- CTE 1: Generate cohort and month_number data for each purchase
   WITH cohort_items AS (
     SELECT
       c.customer_unique_id,
@@ -137,7 +137,7 @@ WITH cohort_data AS (
   JOIN orders o ON c.customer_id = o.customer_id
 ),
 cohort_counts AS (
-  -- Next, counting the number of unique customers for each cohort and month number
+  -- CTE 2: Count unique customers for each cohort and month number
   SELECT
     cohort_month,
     month_number,
@@ -147,33 +147,44 @@ cohort_counts AS (
   GROUP BY
     cohort_month,
     month_number
+),
+-- CTE 3: Find the initial size of each cohort (the number of customers in Month 0)
+cohort_size AS (
+  SELECT
+    cohort_month,
+    num_customers AS total_customers
+  FROM cohort_counts
+  WHERE month_number = 0
 )
--- Finally, pivot the data to create the cohort chart
+-- Final Step: Pivot the data and calculate the retention percentage for each month
 SELECT
-  cohort_month,
-  MAX(CASE WHEN month_number = 0 THEN num_customers ELSE NULL END) AS "Month 0",
-  MAX(CASE WHEN month_number = 1 THEN num_customers ELSE NULL END) AS "Month 1",
-  MAX(CASE WHEN month_number = 2 THEN num_customers ELSE NULL END) AS "Month 2",
-  MAX(CASE WHEN month_number = 3 THEN num_customers ELSE NULL END) AS "Month 3",
-  MAX(CASE WHEN month_number = 4 THEN num_customers ELSE NULL END) AS "Month 4",
-  MAX(CASE WHEN month_number = 5 THEN num_customers ELSE NULL END) AS "Month 5",
-  MAX(CASE WHEN month_number = 6 THEN num_customers ELSE NULL END) AS "Month 6",
-  MAX(CASE WHEN month_number = 7 THEN num_customers ELSE NULL END) AS "Month 7",
-  MAX(CASE WHEN month_number = 8 THEN num_customers ELSE NULL END) AS "Month 8",
-  MAX(CASE WHEN month_number = 9 THEN num_customers ELSE NULL END) AS "Month 9",
-  MAX(CASE WHEN month_number = 10 THEN num_customers ELSE NULL END) AS "Month 10",
-  MAX(CASE WHEN month_number = 11 THEN num_customers ELSE NULL END) AS "Month 11",
-  MAX(CASE WHEN month_number = 12 THEN num_customers ELSE NULL END) AS "Month 12"
+  c_size.cohort_month,
+  c_size.total_customers,
+  -- For each month, calculate the percentage of the original cohort that returned
+  ROUND((MAX(CASE WHEN c_counts.month_number = 1 THEN c_counts.num_customers ELSE 0 END)::decimal / c_size.total_customers) * 100, 2) AS "Month 1 (%)",
+  ROUND((MAX(CASE WHEN c_counts.month_number = 2 THEN c_counts.num_customers ELSE 0 END)::decimal / c_size.total_customers) * 100, 2) AS "Month 2 (%)",
+  ROUND((MAX(CASE WHEN c_counts.month_number = 3 THEN c_counts.num_customers ELSE 0 END)::decimal / c_size.total_customers) * 100, 2) AS "Month 3 (%)",
+  ROUND((MAX(CASE WHEN c_counts.month_number = 4 THEN c_counts.num_customers ELSE 0 END)::decimal / c_size.total_customers) * 100, 2) AS "Month 4 (%)",
+  ROUND((MAX(CASE WHEN c_counts.month_number = 5 THEN c_counts.num_customers ELSE 0 END)::decimal / c_size.total_customers) * 100, 2) AS "Month 5 (%)",
+  ROUND((MAX(CASE WHEN c_counts.month_number = 6 THEN c_counts.num_customers ELSE 0 END)::decimal / c_size.total_customers) * 100, 2) AS "Month 6 (%)",
+  ROUND((MAX(CASE WHEN c_counts.month_number = 7 THEN c_counts.num_customers ELSE 0 END)::decimal / c_size.total_customers) * 100, 2) AS "Month 7 (%)",
+  ROUND((MAX(CASE WHEN c_counts.month_number = 8 THEN c_counts.num_customers ELSE 0 END)::decimal / c_size.total_customers) * 100, 2) AS "Month 8 (%)",
+  ROUND((MAX(CASE WHEN c_counts.month_number = 9 THEN c_counts.num_customers ELSE 0 END)::decimal / c_size.total_customers) * 100, 2) AS "Month 9 (%)",
+  ROUND((MAX(CASE WHEN c_counts.month_number = 10 THEN c_counts.num_customers ELSE 0 END)::decimal / c_size.total_customers) * 100, 2) AS "Month 10 (%)",
+  ROUND((MAX(CASE WHEN c_counts.month_number = 11 THEN c_counts.num_customers ELSE 0 END)::decimal / c_size.total_customers) * 100, 2) AS "Month 11 (%)",
+  ROUND((MAX(CASE WHEN c_counts.month_number = 12 THEN c_counts.num_customers ELSE 0 END)::decimal / c_size.total_customers) * 100, 2) AS "Month 12 (%)"
 FROM
   cohort_counts
+JOIN
+  cohort_size AS c_size ON cohort_counts.cohort_month = c_size.cohort_month
 GROUP BY
-  cohort_month
+  c_size.cohort_month, c_size.total_customers
 ORDER BY
-  cohort_month;
+  c_size.cohort_month;
 ```
 
 **Result Snapshot:**
-![Cohort retention chart showing monthly customer activity](https://raw.githubusercontent.com/Naseem-DataAnalytics/ecommerce-sql-analysis/main/cohort-analysis-result.png)
+![Cohort retention chart showing monthly retention percentages](https://raw.githubusercontent.com/Naseem-DataAnalytics/ecommerce-sql-analysis/main/cohort-percentage-result.png)
 
 ---
 
